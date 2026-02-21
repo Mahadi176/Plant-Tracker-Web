@@ -59,6 +59,8 @@ mainContainer.addEventListener('click',function(event){
         // console.log(cardInfo)
 
         const plantExist = thrivingList.find(item=>item.plantName == cardInfo.plantName)
+  
+            parenNode.querySelector('.status').innerText = 'Thrive'
 
             if(!plantExist){
             thrivingList.push(cardInfo)
@@ -75,6 +77,7 @@ function renderThriving(){
         for(let thrive of thrivingList){
             console.log(thrive)
             let div = document.createElement('div')
+            div.className ='card flex justify-between border border-black p-4 rounded-md my-5'
             div.innerHTML = `
                 <div>
                 <div>
@@ -99,5 +102,7 @@ function renderThriving(){
                 <button class="btnDelete p-2 rounded-md text-red-800 border border-red-800">Delete</button>
             </div>
             `
+            filterSection.appendChild(div)
+
         }
 }
