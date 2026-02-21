@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Plant Tracker</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" /> 
+    <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />  -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style type="text/tailwindcss">
       @theme {
@@ -21,28 +21,36 @@
         <div class="monitoring grid grid-cols-3 ">
             <div class="w-80 px-10 py-3 text-left bg-yellow-200 text-amber-700 rounded-2xl ">
             <p>Total</p>
-            <p>0</p>
+            <p id="total">0</p>
         </div>
             <div class="w-80 px-10 py-3 text-left bg-green-200 text-green-700 rounded-2xl ">
             <p>Thriving</p>
-            <p>0</p>
+            <p id="thrivingCount">0</p>
         </div>
             <div class="w-80 px-10 py-3 text-left bg-red-200 text-red-700 rounded-2xl ">
             <p>Struggling</p>
-            <p>0</p>
+            <p id="strugglingCount">0</p>
         </div>
         </div>
     </header>
     <hr class="my-10">
     <main class=" mx-auto w-[80%]">
         <div>
-            <button class="btn btn-soft btn-neutral" id="all-filter-btn">All</button>
-            <button class="btn btn-soft btn-neutral" id="all-thriving-btn">Thriving</button>
-            <button class="btn btn-soft btn-neutral" id="all-struggling-btn">Struggling</button>
+            <button onclick="toggleStyle('all-filter-btn')" class="py-2 px-5 rounded-md bg-gray-200 font-bold " id="all-filter-btn">All</button>
+            <button onclick="toggleStyle('thriving-filter-btn')" class="py-2 px-5 rounded-md bg-gray-200 font-bold " id="thriving-filter-btn">Thriving</button>
+            <button onclick="toggleStyle('struggling-filter-btn')" class="py-2 px-5 rounded-md bg-gray-200 font-bold " id="struggling-filter-btn">Struggling</button>
         </div>
+
+        <!-- filtered section  -->
+
+        <section id="filtered-section">
+
+        </section>
+
+
         <section id="allCard" class="my-5">
             <!-- card 1-->
-    <div class="cardy flex justify-between border border-black p-4 rounded-md my-5">
+    <div class="card flex justify-between border border-black p-4 rounded-md my-5">
         <!-- part-1  -->
             <div>
                 <div>
@@ -54,21 +62,21 @@
                     <p class="water bg-slate-200 rounded-lg px-2">Weekly</p>
                 </div>
                 <div class=" mb-4">
-                    <p class="st w-40 border border-red-800 text-red-800 rounded-lg px-2">Not Applicable</p>
+                    <p class="status w-40 border border-red-800 text-red-800 rounded-lg px-2">Not Applicable</p>
                     <p class="notes mt-2">New Leaf unfurling by the east window</p>
                 </div>
                 <div>
-                    <button class="thrivingBtn btn bg-green-200 text-green-800">Thriving</button>
-                    <button class="strugglingBtn btn bg-red-200 text-red-800">Struggling</button>
+                    <button class="thrivingBtn p-2 rounded-md bg-green-200 text-green-800">Thriving</button>
+                    <button class="strugglingBtn p-2 rounded-md bg-red-200 text-red-800">Struggling</button>
                 </div>
             </div>
             <!-- part-2  -->
             <div>
-                <button class="btnDelete btn text-red-800 border border-red-800">Delete</button>
+                <button class="btnDelete p-2 rounded-md text-red-800 border border-red-800">Delete</button>
             </div>
     </div>
             <!-- card 2-->
-    <div class="cardy flex justify-between border border-black p-4 rounded-md my-5">
+    <div class="card flex justify-between border border-black p-4 rounded-md my-5">
         <!-- part-1  -->
             <div>
                 <div>
@@ -80,21 +88,21 @@
                     <p class="water bg-slate-200 rounded-lg px-2">Weekly</p>
                 </div>
                 <div class=" mb-4">
-                    <p class="st w-40 border border-red-800 text-red-800 rounded-lg px-2">Not Applicable</p>
+                    <p class="status w-40 border border-red-800 text-red-800 rounded-lg px-2">Not Applicable</p>
                     <p class="notes mt-2">New Leaf unfurling by the east window</p>
                 </div>
                 <div>
-                    <button class="thrivingBtn btn bg-green-200 text-green-800">Thriving</button>
-                    <button class="strugglingBtn btn bg-red-200 text-red-800">Struggling</button>
+                    <button class="thrivingBtn p-2 rounded-md bg-green-200 text-green-800">Thriving</button>
+                    <button class="strugglingBtn p-2 rounded-md bg-red-200 text-red-800">Struggling</button>
                 </div>
             </div>
             <!-- part-2  -->
             <div>
-                <button class="btnDelete btn text-red-800 border border-red-800">Delete</button>
+                <button class="btnDelete p-2 rounded-md text-red-800 border border-red-800">Delete</button>
             </div>
     </div>
             <!-- card 3-->
-    <div class="cardy flex justify-between border border-black p-4 rounded-md my-5">
+    <div class="card flex justify-between border border-black p-4 rounded-md my-5">
         <!-- part-1  -->
             <div>
                 <div>
@@ -106,21 +114,21 @@
                     <p class="water bg-slate-200 rounded-lg px-2">Weekly</p>
                 </div>
                 <div class=" mb-4">
-                    <p class="st w-40 border border-red-800 text-red-800 rounded-lg px-2">Not Applicable</p>
+                    <p class="status w-40 border border-red-800 text-red-800 rounded-lg px-2">Not Applicable</p>
                     <p class="notes mt-2">New Leaf unfurling by the east window</p>
                 </div>
                 <div>
-                    <button class="thrivingBtn btn bg-green-200 text-green-800">Thriving</button>
-                    <button class="strugglingBtn btn bg-red-200 text-red-800">Struggling</button>
+                    <button class="thrivingBtn p-2 rounded-md bg-green-200 text-green-800">Thriving</button>
+                    <button class="strugglingBtn p-2 rounded-md bg-red-200 text-red-800">Struggling</button>
                 </div>
             </div>
             <!-- part-2  -->
             <div>
-                <button class="btnDelete btn text-red-800 border border-red-800">Delete</button>
+                <button class="btnDelete p-2 rounded-md text-red-800 border border-red-800">Delete</button>
             </div>
     </div>
         </section>
     </main>
-    <script src="plant.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
