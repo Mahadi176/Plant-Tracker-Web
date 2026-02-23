@@ -1,6 +1,6 @@
 let thrivingList = []
 let strugglingList = []
-let currentStatus =''
+let currentStatus ='all'
 
 let total = document.getElementById('total')
 let thrivingCount = document.getElementById('thrivingCount')
@@ -20,11 +20,14 @@ function calculateCount(){
 calculateCount()
 
 function toggleStyle(id){
-    
+
+    currentStatus = id
+
 
     if(id == 'thriving-filter-btn'){
         allCardSection.classList.add('hidden')
         filterSection.classList.remove('hidden')
+        renderThriving()
     }
     else if(id == 'all-filter-btn'){
         allCardSection.classList.remove('hidden')
@@ -33,6 +36,7 @@ function toggleStyle(id){
     else if(id == 'struggling-filter-btn'){
         allCardSection.classList.add('hidden')
         filterSection.classList.remove('hidden')
+        renderStruggling()
     }
     
 }
@@ -60,14 +64,21 @@ mainContainer.addEventListener('click',function(event){
     const plantExist = thrivingList.find(item => item.plantName == cardInfo.plantName)
 
     if(!plantExist){
-
         thrivingList.push(cardInfo)
-
     }
+
+    
+    strugglingList = strugglingList.filter(item=> item.plantName != cardInfo.plantName)
+    if(currentStatus == 'struggling-filter-btn'){
+        renderStruggling();
+    }
+    
     calculateCount()
-
-    renderThriving()
+    
+    // renderThriving()
     }
+
+
     else if(event.target.classList.contains('struggling-btn')){
         const parenNode = event.target.parentNode.parentNode
 
@@ -91,19 +102,25 @@ mainContainer.addEventListener('click',function(event){
     const plantExist = strugglingList.find(item => item.plantName == cardInfo.plantName)
 
     if(!plantExist){
-
         strugglingList.push(cardInfo)
-
     }
-    calculateCount()
 
-    renderStruggling()
+    thrivingList = thrivingList.filter(item=> item.plantName != cardInfo.plantName)
+    if(currentStatus == 'thriving-filter-btn'){
+        renderThriving();
+    }
+    
+    calculateCount()
+    
+
+    // renderStruggling()
     }
     
 })
 
 function renderThriving(){
         filterSection.innerHTML = ''
+
         for(let thrive of thrivingList){
             let div = document.createElement('div')
             div.className = "card flex justify-between border border-black p-4 rounded-md my-5"
@@ -123,10 +140,10 @@ function renderThriving(){
            <p class="notes mt-2">New Leaf unfurling by the east window</p>
        </div>
        <div>
-           <button class="thrivingBtn p-2 rounded-md bg-green-200 text-green-800">
+           <button class="thriving-btn p-2 rounded-md bg-green-200 text-green-800">
                                     Thriving
            </button>
-           <button class="strugglingBtn p-2 rounded-md bg-red-200 text-red-800">
+           <button class="struggling-btn p-2 rounded-md bg-red-200 text-red-800">
                                     Struggling
            </button>
         </div>
@@ -163,10 +180,10 @@ function renderStruggling(){
            <p class="notes mt-2">New Leaf unfurling by the east window</p>
        </div>
        <div>
-           <button class="thrivingBtn p-2 rounded-md bg-green-200 text-green-800">
+           <button class="thriving-btn p-2 rounded-md bg-green-200 text-green-800">
                                     Thriving
            </button>
-           <button class="strugglingBtn p-2 rounded-md bg-red-200 text-red-800">
+           <button class="struggling-btn p-2 rounded-md bg-red-200 text-red-800">
                                     Struggling
            </button>
         </div>
