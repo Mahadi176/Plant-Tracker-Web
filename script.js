@@ -10,7 +10,7 @@ let strugglingCount = document.getElementById('strugglingCount')
 const allCardSection = document.getElementById('allCard')
 const mainContainer = document.querySelector('main')
 const filterSection = document.getElementById('filtered-section')
-
+const btnDeletes = document.getElementsByClassName('btnDelete')
 
 function calculateCount(){
     total.innerText = allCardSection.children.length
@@ -40,6 +40,22 @@ function toggleStyle(id){
     }
     
 }
+
+// Delete-Btn 
+mainContainer.addEventListener('click', function(event){
+    if(event.target.classList.contains('btnDelete')){
+
+        const card = event.target.parentNode.parentNode 
+        const plantName = card.querySelector('.plantName').innerText
+
+        thrivingList = thrivingList.filter(item => item.plantName != plantName)
+        strugglingList = strugglingList.filter(item => item.plantName != plantName)
+
+        card.parentNode.removeChild(card) 
+        calculateCount()
+    }
+})
+
 mainContainer.addEventListener('click',function(event){
     if(event.target.classList.contains('thriving-btn')){
         const parenNode = event.target.parentNode.parentNode
@@ -199,4 +215,5 @@ function renderStruggling(){
         }  
 
 }
+
 
