@@ -1,6 +1,6 @@
 let thrivingList = []
 let strugglingList = []
-let currentStatus ='all'
+let currentStatus =''
 
 let total = document.getElementById('total')
 let thrivingCount = document.getElementById('thrivingCount')
